@@ -7,6 +7,10 @@ app.use(cors());
 // mysql connection
 const { connect } = require("./connect");
 
+
+app.get("/", (req, res) => {
+	res.send("Hello, World");
+});
 // table schema
 app.get("/install", (req, res) => {
 	const installTable = `CREATE TABLE if not exists Task (
