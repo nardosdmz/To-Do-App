@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import axios from "axios";
+import axios from "./axios";
 import { Link, useParams } from "react-router-dom";
 
 function EditTask() {
@@ -16,7 +16,7 @@ function EditTask() {
 	// fetch all task
 	async function fetchTask() {
 		try {
-			const { data } = await axios(`http://localhost:5000/task/${id}`);
+			const { data } = await axios(`/task/${id}`);
 			setTask(data.result);
 			if (task.length > 0) {
 				// data.result.length > 0{
@@ -36,7 +36,7 @@ function EditTask() {
 		const updateCompleted = checkBoxDom.current.checked;
 
 		try {
-			await axios.patch(`http://localhost:5000/task/${id}`, {
+			await axios.patch(`/task/${id}`, {
 				name: updatedName,
 				completed: updateCompleted,
 			});

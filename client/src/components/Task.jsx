@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "./axios";
 function Task() {
 	const inputDom = useRef(null);
 	const [tasks, setTasks] = useState([]);
@@ -13,7 +13,7 @@ function Task() {
 	async function fetchTask() {
 		try {
 			setloading(true);
-			const { data } = await axios("http://localhost:5000/all-tasks");
+			const { data } = await axios("/all-tasks");
 			setTasks(data.result);
 			// console.log(tasks);
 			setloading(false);
@@ -29,7 +29,7 @@ function Task() {
 			setloading(true);
 			const value = inputDom.current.value;
 			if (value) {
-				await axios.post("http://localhost:5000/create", {
+				await axios.post("/create", {
 					name: value,
 				});
 			}
@@ -45,7 +45,7 @@ function Task() {
 		try {
 			setloading(true);
 			// please call delete api request here
-			await axios.delete(`http://localhost:5000/task/${id}`);
+			await axios.delete(`/task/${id}`);
 			fetchTask();
 			setloading(false);
 		} catch (error) {
