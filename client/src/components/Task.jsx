@@ -1,10 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "./axios";
-function Task() {
+import Header from "./Header/Header";
+import { useUser } from "../context/UserContext";
+
+function Task({ logout }) {
 	const inputDom = useRef(null);
 	const [tasks, setTasks] = useState([]);
 	const [loading, setloading] = useState(false);
+	const [userData] = useUser();
+	const navigate = useNavigate();
 	useEffect(() => {
 		fetchTask();
 	}, []);
@@ -13,25 +18,37 @@ function Task() {
 	async function fetchTask() {
 		try {
 			setloading(true);
-			const { data } = await axios("/all-tasks");
-			setTasks(data.result);
-			// console.log(tasks);
+			const userID = userData?.user?.id;
+			if (userID) {
+				const response = await axios(`/tasks/all-tasks?user_id=${userID}`);
+				setTasks(response.data.data);
+				
+			} else {
+				console.log("User ID is not available.");
+			}
+
 			setloading(false);
 		} catch (error) {
-			console.log(error.message);
+			console.log("Error message:", error.message);
 			setloading(false);
 		}
 	}
+
 	// create task
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
 			setloading(true);
 			const value = inputDom.current.value;
-			if (value) {
-				await axios.post("/create", {
-					name: value,
+			const IdUser = userData?.user?.id;
+
+			if (value && IdUser) {
+				const response = await axios.post("/tasks", {
+					userId: IdUser,
+					taskName: value,
 				});
+				const message = response.data.message;
+				console.log(message);
 			}
 			fetchTask();
 			inputDom.current.value = "";
@@ -40,27 +57,34 @@ function Task() {
 			setloading(false);
 		}
 	}
-	// delete task ??
+	// delete task
 	async function handleDelete(id) {
 		try {
 			setloading(true);
-			// please call delete api request here
-			await axios.delete(`/task/${id}`);
+
+			await axios.delete(`/tasks/task/${id}`);
 			fetchTask();
 			setloading(false);
 		} catch (error) {
 			setloading(false);
 		}
 	}
+
+	useEffect(() => {
+		if (!userData.user) navigate("/login");
+	}, [userData.user, navigate]);
+
+	
 	return (
 		<>
+			<Header />
 			<form onSubmit={handleSubmit} className="task-form">
-				<h4>task manager</h4>
-				<div className="form-control">
+				<h4>Task manager</h4>
+				<div className="form_control">
 					<input
 						ref={inputDom}
 						type="text"
-						name="name"
+						name="taskName"
 						className="task-input"
 						placeholder="e.g. learn reactJs"
 					/>
@@ -68,6 +92,7 @@ function Task() {
 						Add
 					</button>
 				</div>
+			
 				<div className="form-alert"></div>
 			</form>
 			<section className="tasks-container">
@@ -76,7 +101,7 @@ function Task() {
 					<p className=" loading"></p>
 				) : (
 					<div className="tasks">
-						{tasks.map((sTask) => {
+						{tasks.reverse().map((sTask) => {
 							return (
 								<div
 									key={sTask.id}

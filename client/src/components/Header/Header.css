@@ -1,0 +1,47 @@
+.nav-wrapper {
+	box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
+	padding: 17px;
+	position: relative;
+	background-color: #fff;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	padding: 16px;
+	z-index: 120;
+	transition: top 0.3s;
+}
+.hello {
+	margin-bottom: 0;
+}
+.userName-style {
+	background-color: #afc6c2;
+	padding: 4px 6px;
+	border: 1px solid #dfe6e5;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+	border-radius: 3px;
+}
+.btn-logout {
+	position: absolute;
+	top: 15px;
+	right: 25px;
+}
+
+@media screen and (max-width: 425px) {
+	.btn-logout {
+		left: 10px;
+		top: 44px;
+		margin-top: 7px;
+	}
+	.nav-wrapper {
+		padding: 17px;
+		padding-bottom: 44px;
+	}
+}
+@media screen and (max-width: 545px) {
+	.hello {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 285px;
+	}
+}

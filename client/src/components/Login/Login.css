@@ -1,0 +1,27 @@
+.form_container {
+	margin-bottom: 3rem;
+	position: relative;
+}
+.fs-2 {
+	font-size: 15px;
+	margin: 10px 0px 6px 0px;
+	display: flex;
+	justify-content: end;
+	color: rgb(23, 167, 7);
+}
+.fs-2:hover,
+.fs-4:hover {
+	color: rgb(13, 183, 13);
+	text-decoration: underline;
+}
+.new-acc {
+	font-size: 15px;
+	margin-top: 10px;
+}
+
+.fs-4 {
+	font-weight: 600;
+	color: rgb(23, 167, 7);
+	margin-left: 5px;
+}
+

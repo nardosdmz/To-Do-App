@@ -14,6 +14,41 @@ connect.connect((err) => {
 	} else {
 		console.log("connected");
 	}
+	let users = `CREATE TABLE if not exists users (
+    user_id int auto_increment,
+    user_name varchar(255) not null,
+    user_password varchar(255) not null,
+    PRIMARY KEY (user_id)
+  )`;
+
+	// 	const installTable = `CREATE TABLE if not exists Task (
+	//     id INT NOT NULL AUTO_INCREMENT,
+	//     user_id int not null,
+	//     task_name VARCHAR(255),
+	//     completed BOOLEAN DEFAULT false,
+	//     PRIMARY KEY (id),
+	//     FOREIGN KEY (user_id) REFERENCES users(user_id)
+	//   )`;
+	const installTable = `CREATE TABLE if not exists task (
+  id INT NOT NULL AUTO_INCREMENT,
+  user_id int not null,
+  task_name VARCHAR(255),
+  completed BOOLEAN DEFAULT false,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  due_date DATETIME, 
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
+)`;
+
+	connect.query(users, (err, results) => {
+		if (err) throw err;
+		console.log("Users table created");
+	});
+
+	connect.query(installTable, (err) => {
+		if (err) throw err;
+		console.log("Task table created");
+	});
 });
 
 module.exports = { connect };

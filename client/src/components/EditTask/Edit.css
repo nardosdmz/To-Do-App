@@ -1,0 +1,37 @@
+.time {
+	font-weight: 700;
+	color: rgb(8, 171, 8);
+}
+.dividera:after {
+	position: relative;
+	top: 2px;
+	border: 2px solid rgb(222, 49, 49);
+}
+.line-container {
+	display: flex;
+	align-items: center;
+}
+.line{
+	flex-grow: 1;
+	height: 1px;
+	background-color: #0abd22;
+	margin: 0 9px;
+}
+.line-text {
+	margin-top: 25px;
+	color: #0481b7;
+	/* font-size: 12px; */
+}
+
+@media screen and (max-width: 344px) {
+	.single-task-form.name-row label,
+	.single-task-form.name-row input {
+		background-color: red;
+	}
+	.task-edit-name {
+		margin: 0px -70px;
+	}
+	.single-task-form > .name-row input {
+		width: 100px;
+	}
+}

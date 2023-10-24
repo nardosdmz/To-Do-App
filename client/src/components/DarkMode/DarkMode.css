@@ -1,0 +1,87 @@
+.theme-toggle {
+	font-size: small;
+	cursor: pointer;
+	border: 1px solid rgb(160, 163, 160);
+	background-color: rgb(4, 8, 77);
+	border-radius: 14px;
+	box-shadow: 1px 1px 5px rgba(20, 24, 20, 0.4);
+	padding: 6px 6px 0px 6px;
+	position: absolute;
+	top: 1em;
+	right: 7.7rem;
+	color: #f4f4f4;
+}
+
+.light {
+	background-color: #fff;
+}
+/* dark mode css's */
+.dark {
+	background-color: #1b441f;
+	color: #dedddd;
+
+}
+.dark .theme-toggle {
+	color: rgb(214, 210, 104);
+	background-color: rgb(1, 2, 1);
+	box-shadow: 1px 1px 4px rgba(215, 215, 215, 0.4);
+}
+
+.dark nav {
+	background-color: #021404;
+	border-bottom: 1px solid rgb(71, 69, 69);
+}
+.dark .header {
+	background-color: #021404;
+	border-bottom: 1px solid rgb(87, 95, 88);
+}
+.dark a {
+	color: #308215;
+}
+.dark button {
+	background-color: #399419;
+	color: #000;
+}
+.dark .userName-style {
+	color: #000;
+}
+.dark h3,
+h2 {
+	color: #dcdbdb;
+}
+.dark input {
+	background-color: #39453a;
+	color: #c4c3c3;
+;
+}
+
+.dark .form_container,
+.dark .task-form,
+.dark .single-task,
+.dark .delete-btn,
+.dark .single-task-form {
+	background-color: #021404;
+}
+.dark .back-link {
+	background-color: #000;
+	margin-bottom: 20px;
+}
+.dark .delete-btn {
+	color: rgba(142, 18, 18, 0.906);
+}
+.dark .edit-link {
+	color: rgb(76, 104, 70);
+}
+.dark .edit-link:hover {
+	color: rgb(4, 87, 8);
+}
+.dark .single-task:hover {
+	box-shadow: 2px 2px 8px rgba(236, 236, 236, 0.3);
+}
+
+@media screen and (max-width: 425px) {
+	.theme-toggle {
+		top: 7.6em;
+		right: 1rem;
+	}
+}

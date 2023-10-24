@@ -137,7 +137,9 @@ a {
 	cursor: pointer;
 	appearance: none;
 	color: var(--white);
-	background: var(--primary-500);
+	/* background: var(--primary-500); */
+	background: #17af3b;
+
 	border: none;
 	border-radius: var(--borderRadius);
 	letter-spacing: var(--letterSpacing);
@@ -149,7 +151,7 @@ a {
 
 .btn:hover {
 	color: var(--white);
-	background: var(--primary-700);
+	background: #03861d;
 	box-shadow: var(--shadow-2);
 }
 button.small {
@@ -182,7 +184,8 @@ form {
 label {
 	display: block;
 	font-size: var(--smallText);
-	margin-bottom: 0.5rem;
+	margin-bottom: 0.3rem;
+	margin-top: 0.6rem;
 	text-transform: capitalize;
 }
 
@@ -217,9 +220,13 @@ textarea {
 	width: 90vw;
 	max-width: var(--fixed-width);
 	margin: 0 auto;
-	margin-top: 6rem;
+	margin-top: 4rem;
 }
 .task-form h4 {
+	text-align: center;
+}
+
+.task-form h3 {
 	text-align: center;
 }
 .task-form .form-alert {
@@ -230,7 +237,7 @@ textarea {
 	margin-top: 1rem;
 }
 @media screen and (min-width: 576px) {
-	.form-control {
+	.form_control {
 		display: flex;
 	}
 	.task-input {
@@ -263,10 +270,12 @@ form > :last-child {
 .alert-success {
 	color: var(--green-dark);
 	background-color: var(--green-light);
+	border-color: rgb(37, 185, 34);
 }
 .alert-danger {
 	color: var(--red-dark);
 	background-color: var(--red-light);
+	border-color: rgb(255, 125, 125);
 }
 .text-danger {
 	color: var(--red-dark);
@@ -427,11 +436,12 @@ form > :last-child {
 	width: auto;
 }
 .back-link {
+	
 	display: block;
 	width: 250px;
 	margin: 0 auto;
 	text-align: center;
-	margin-top: 6rem;
+	margin-top: 4rem;
 	background: var(--black);
 }
 .back-link:hover {
@@ -442,4 +452,9 @@ form > :last-child {
 .single-task-form .form-alert {
 	text-align: center;
 	margin-top: 1rem;
+}
+/* ////////// */
+.task-form,
+.main__wrapper,.single-task-form {
+	margin-top: 150px;
 }
