@@ -15,7 +15,7 @@ function SignUp() {
 	});
 	const [errors, setErrors] = useState({});
 	const [showPassword, setShowPassword] = useState(false);
-	const [successMessage, setSuccessMessage] = useState("");
+	const [successMsg, setSuccessMsg] = useState("");
 	const navigate = useNavigate();
 
 	const handleChange = (e) => {
@@ -51,7 +51,7 @@ function SignUp() {
 		if (Object.keys(newErrors).length === 0) {
 			try {
 				await axios.post("/users", form);
-				setSuccessMessage(
+				setSuccessMsg(
 					"Successfully signed up! Please log in with your new account."
 				);
 				setErrors({});
@@ -78,7 +78,7 @@ function SignUp() {
 						</div>
 
 						<Form className="form_container" onSubmit={handleSubmit}>
-							<div className="success-message">{successMessage}</div>
+							<div className="success-message">{successMsg}</div>
 							<Form.Group controlId="userName">
 								<Form.Label>Username</Form.Label>
 								<Form.Control
@@ -88,13 +88,8 @@ function SignUp() {
 									value={form.userName}
 									onChange={handleChange}
 									autoComplete="off"
-									// isInvalid={!!errors.userName}
 									className={`${
-										errors.userName
-											? "alert-danger"
-											: form.userName
-											? ""
-											: ""
+										errors.userName ? "alert-danger" : form.userName ? "" : ""
 									}`}
 									// required
 								/>
@@ -112,13 +107,9 @@ function SignUp() {
 									value={form.password}
 									onChange={handleChange}
 									// required
-									// isInvalid={!!errors.password}
+
 									className={`${
-										errors.password
-											? "alert-danger"
-											: form.password
-											? ""
-											: ""
+										errors.password ? "alert-danger" : form.password ? "" : ""
 									}`}
 								/>
 								<span
@@ -152,13 +143,8 @@ function SignUp() {
 									placeholder="Password"
 									value={form.password2}
 									onChange={handleChange}
-									// isInvalid={!!errors.password2}
 									className={`${
-										errors.password2
-											? "alert-danger"
-											: form.password2
-											? ""
-											: ""
+										errors.password2 ? "alert-danger" : form.password2 ? "" : ""
 									}`}
 									// required
 								/>

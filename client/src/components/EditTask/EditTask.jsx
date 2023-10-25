@@ -10,7 +10,7 @@ function EditTask() {
 	const inputDom = useRef(null);
 	const checkBoxDom = useRef(null);
 	const dueDateDom = useRef(null);
-	const [userData] = useUser();
+	const {userData} = useUser();
 	const navigate = useNavigate();
 	const [success, setSuccess] = useState("");
 	const [errMsg, setErrMsg] = useState("");
@@ -19,6 +19,7 @@ function EditTask() {
 	useEffect(() => {
 		fetchTask();
 	}, [id]);
+
 
 	// timer to clear the message after 5 seconds
 	const showMessageFor = (message, setMessage) => {
@@ -38,37 +39,16 @@ function EditTask() {
 	}, [errMsg, success]);
 
 	// fetch all task
-	// async function fetchTask() {
-	// 	try {
-	// 		const userID = userData?.user?.id;
-	// 		console.log(userID, "userid");
-	// 		console.log(id, "this is id ");
-
-	// 		const { data } = await axios(`/tasks/task/${id}?user_id=${userID}`);
-	// 		const taskData = data[0].task_name;
-	// 		// console.log(taskData);
-	// 		setTask(taskData);
-	// 		// console.log(task);
-
-	// 		if (taskData.length > 0) {
-	// 			inputDom.current.value = taskData;
-	// 			checkBoxDom.current.checked = data[0].completed;
-	// 		}
-	// 	} catch (error) {
-	// 		console.log(error.message);
-	// 	}
-	// }
 	async function fetchTask() {
 		try {
 			const userID = userData?.user?.id;
-			console.log(userID, "userid");
-			console.log(id, "this is id ");
+			// console.log(userID, "userid");
+			// console.log(id, "this is id ");
 
 			const { data } = await axios(`/tasks/task/${id}?user_id=${userID}`);
 			const taskData = data[0];
 
 			setTask(taskData);
-			console.log(taskData);
 			if (taskData) {
 				inputDom.current.value = taskData.task_name;
 				checkBoxDom.current.checked = taskData.completed;
@@ -143,6 +123,7 @@ function EditTask() {
 	useEffect(() => {
 		if (!userData.user) navigate("/login");
 	}, [userData.user, navigate]);
+	
 
 	return (
 		<>
@@ -175,10 +156,6 @@ function EditTask() {
 						{errMsg}
 					</div>
 
-					{/* <div className="form-control">
-						<label>Task ID</label>
-						<p className="task-edit-id">{id}</p>
-					</div> */}
 					<div className="form-control">
 						<label>Created On :</label>
 						<p className="task-edit-id">{formatDate(task.created_at)}</p>
@@ -201,26 +178,20 @@ function EditTask() {
 							className="task-edit-completed"
 						/>
 					</div>
-
-					{/* <div class="divider">
-						<h5>Set a due date</h5>
-					</div> */}
+			
 					<div className="line-container">
 						<hr className="line" />
 						<h5 className="line-text">Set a due date?</h5>
 						<hr className="line" />
 					</div>
-
-					{/* <hr /> */}
-
-					<div className="form-control">
+					<div className="form-control-due-data">
 						<label htmlFor="dueDate">
 							Select Due Date & <span className="time">Time</span>{" "}
 							<small>(both)</small> :
 						</label>
 						<input
 							ref={dueDateDom}
-							type="datetime-local" // Use an appropriate input type for date and time
+							type="datetime-local" 
 							name="dueDate"
 							className="task-edit-due-date"
 							placeholder="Select Due Date and Time"
@@ -229,7 +200,7 @@ function EditTask() {
 					<div className="form-control">
 						<label htmlFor="dueDate">Due Date :</label>
 						{task.due_date ? (
-							<p>
+							<p className="due-date-display">
 								{formatDate(task.due_date)}
 								{"  "}
 								<button onClick={handleDeleteDueDate} className="delete-btn">

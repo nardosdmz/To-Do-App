@@ -11,7 +11,7 @@
 	display: flex;
 	align-items: center;
 }
-.line{
+.line {
 	flex-grow: 1;
 	height: 1px;
 	background-color: #0abd22;
@@ -20,9 +20,15 @@
 .line-text {
 	margin-top: 25px;
 	color: #0481b7;
-	/* font-size: 12px; */
 }
-
+.form-control-due-data {
+	display: grid;
+	grid-template-columns: 150px 1fr;
+	align-items: center;
+	justify-items: start;
+	gap: 0 1rem;
+	margin-bottom: 0.75rem;
+}
 @media screen and (max-width: 344px) {
 	.single-task-form.name-row label,
 	.single-task-form.name-row input {
@@ -31,7 +37,26 @@
 	.task-edit-name {
 		margin: 0px -70px;
 	}
-	.single-task-form > .name-row input {
-		width: 100px;
+	.task-edit-id {
+		margin: 0px -40px;
 	}
+	.single-task-form > .name-row input {
+		width: 120px;
+	}
+	.due-date-display {
+		margin: 0px -50px;
+	}
+	.line-text {
+		
+		font-size: 18px;
+		color: #0481b7;
+	}
+}
+@media screen and (max-width: 570px) {
+	.form-control-due-data {
+		display: block;
+		font-size: 15px;
+	}
+	
+
 }

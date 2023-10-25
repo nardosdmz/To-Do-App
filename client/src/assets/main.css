@@ -436,7 +436,6 @@ form > :last-child {
 	width: auto;
 }
 .back-link {
-	
 	display: block;
 	width: 250px;
 	margin: 0 auto;
@@ -453,8 +452,16 @@ form > :last-child {
 	text-align: center;
 	margin-top: 1rem;
 }
+
 /* ////////// */
 .task-form,
-.main__wrapper,.single-task-form {
+.main__wrapper,
+.single-task-form {
 	margin-top: 150px;
+}
+@media screen and (max-width: 570px) {
+	.single-task-form .form-control {
+		font-size: 0.8rem;
+		margin-top: 1.4rem;
+	}
 }

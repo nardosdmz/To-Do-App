@@ -6,13 +6,14 @@ import { useUser } from "../../context/UserContext";
 import DarkMode from "../DarkMode/DarkMode";
 
 function Header() {
-	const [userData, setUserData] = useUser();
+	const { userData, setUserData } = useUser();
 
 	const logout = () => {
 		setUserData({
 			token: null,
 			user: null,
 		});
+		localStorage.setItem("authtoken", "");
 	};
 
 	return (

@@ -12,7 +12,6 @@
 .header {
 	text-align: center;
 	background-color: #17af3b;
-	/* background-color: #369512; */
 	padding: 19px 0px 1px 0px;
 	border-radius: 6px 6px 0px 0px;
 	color: white;
@@ -26,11 +25,7 @@
 /* Custom Input Styles */
 .custom-Input {
 	position: relative;
-	/* margin-bottom: 10px; */
-	/* Your custom input styles here */
 }
-
-/* Custom Input Input Styles */
 .custom-input input {
 	border: 2px solid #f0f0f0;
 	border-radius: 5px;

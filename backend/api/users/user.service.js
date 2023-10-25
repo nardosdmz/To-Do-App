@@ -22,25 +22,10 @@ module.exports = {
 				if (err) {
 					return callback(err);
 				}
-				// console.log(result[0]);
 				return callback(null, result[0]);
 			}
 		);
 	},
-
-	// getUserByUserName: (userName, callback) => {
-	// 	connect.query(
-	// 		"SELECT * FROM users WHERE user_name = ?",
-	// 		[userName],
-	// 		(err, result) => {
-	// 			if (err) {
-	// 				return callback(err);
-	// 			}
-
-	// 			return callback(null, result[0]);
-	// 		}
-	// 	);
-	// },
 
 	getUserByUserName: (userName) => {
 		return new Promise((resolve, reject) => {
@@ -51,7 +36,6 @@ module.exports = {
 					if (err) {
 						reject(err);
 					} else {
-						
 						resolve(result[0]);
 					}
 				}

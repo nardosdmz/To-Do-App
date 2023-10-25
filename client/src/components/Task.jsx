@@ -4,11 +4,11 @@ import axios from "./axios";
 import Header from "./Header/Header";
 import { useUser } from "../context/UserContext";
 
-function Task({ logout }) {
+function Task() {
 	const inputDom = useRef(null);
 	const [tasks, setTasks] = useState([]);
 	const [loading, setloading] = useState(false);
-	const [userData] = useUser();
+	const { userData } = useUser();
 	const navigate = useNavigate();
 	useEffect(() => {
 		fetchTask();
@@ -19,10 +19,11 @@ function Task({ logout }) {
 		try {
 			setloading(true);
 			const userID = userData?.user?.id;
+		
 			if (userID) {
 				const response = await axios(`/tasks/all-tasks?user_id=${userID}`);
-				setTasks(response.data.data);
 				
+				setTasks(response.data.data);
 			} else {
 				console.log("User ID is not available.");
 			}
@@ -74,7 +75,6 @@ function Task({ logout }) {
 		if (!userData.user) navigate("/login");
 	}, [userData.user, navigate]);
 
-	
 	return (
 		<>
 			<Header />
@@ -92,7 +92,7 @@ function Task({ logout }) {
 						Add
 					</button>
 				</div>
-			
+
 				<div className="form-alert"></div>
 			</form>
 			<section className="tasks-container">

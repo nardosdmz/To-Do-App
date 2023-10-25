@@ -8,7 +8,6 @@ import { BrowserRouter } from "react-router-dom";
 // css
 import "./assets/normalize.css";
 import "./assets/main.css";
-import "./assets/style.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<UserProvider>

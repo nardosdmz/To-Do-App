@@ -9,7 +9,7 @@ import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
-	const [userData, setUserData] = useUser();
+	const {userData, setUserData} = useUser();
 	const [formData, setFormData] = useState({
 		userName: "",
 		password: "",
@@ -45,8 +45,7 @@ function Login() {
 				});
 
 				if (loginRes && loginRes.data) {
-					console.log("Token:", loginRes.data.token);
-					console.log("User:", loginRes.data.user);
+				
 					setUserData({
 						token: loginRes.data.token,
 						user: loginRes.data.user,

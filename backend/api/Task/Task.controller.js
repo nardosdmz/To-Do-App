@@ -1,9 +1,9 @@
 const { connect } = require("../../connect");
 const { postTask, getAllTasks } = require("./Task.service");
+
 module.exports = {
 	createTask: (req, res) => {
 		const { userId, taskName } = req.body;
-		// console.log(req.body);
 
 		if (!taskName) {
 			return res.status(400).json({ message: "Please provide task data" });
@@ -14,15 +14,15 @@ module.exports = {
 				console.log(err);
 				return res.status(500).json({ message: "Task creation failed" });
 			}
+			// if everything is ok send message and assign the result to the word "data"
+
 			return res.status(201).json({ message: "Task created", data: result });
 		});
 	},
 
-	///////////////////////////////////////////////////////////
 	tasks: (req, res) => {
 		const userId = req.query.user_id;
-		// console.log(userId, "userId");
-
+		// getting the userId from the query like http://theurl.com/router?user_id=123,
 		if (!userId) {
 			return res
 				.status(400)
@@ -40,7 +40,7 @@ module.exports = {
 
 	taskByID: (req, res) => {
 		const user_id = req.query.user_id;
-		const id = req.params.id;
+		const id = req.params.id; //ex user sent /user/123
 		const singleTask = "SELECT * FROM task WHERE id = ? AND user_id = ?;";
 
 		connect.query(singleTask, [id, user_id], (error, results) => {
@@ -50,19 +50,18 @@ module.exports = {
 			if (results.length < 1) {
 				return res.status(404).send(`No task with id: ${id}`);
 			} else {
-				// return res.status(200).json(results[0]);
 				return res.status(200).json(results);
 			}
 		});
 	},
 
 	updateTask: (req, res) => {
-		const id = req.params.id;
+		const id = req.params.id; // the id is dynamic depending on what the user selected
 		const user_id = req.query.user_id;
 		const { taskName, completed, dueDate } = req.body;
-		console.log(req.body, "updated task");
+		// console.log(req.body, "tasks to be updated");
 
-		//select from dbase to check it the data already exsits before updating
+		//select from dbase to check if the data already exsits before updating
 		connect.query(
 			`SELECT task_name, completed ${
 				dueDate ? ", due_date" : ""
@@ -82,7 +81,7 @@ module.exports = {
 
 				//compare the existing data with tht new one
 				const existingTask = selectResults[0];
-				console.log(existingTask, "existing task before");
+				// console.log(existingTask, "existing task before");
 				if (
 					existingTask.task_name === taskName &&
 					existingTask.completed === completed &&
@@ -93,7 +92,7 @@ module.exports = {
 					});
 				}
 
-				// If the data is different, continue with the update
+				// If data is different, continue update
 				const updateTask = `UPDATE task
 		SET ${taskName ? `task_name = ?,` : ""}
 		completed = ? ${dueDate ? `, due_date = ?` : ""}
@@ -122,15 +121,14 @@ module.exports = {
 		);
 	},
 
-	overWriteTask: (req, res) => {
+	replaceTask: (req, res) => {
 		const id = req.params.id;
 		const user_id = req.query.user_id;
 
-		// Update the task in your database to set the due_date to null
+		// update the task to set due_date to null
 		const updateQuery =
 			"UPDATE task SET due_date = NULL WHERE id = ? AND user_id = ?";
 
-		// Execute the SQL query or use an ORM to update the database record
 		connect.query(updateQuery, [id, user_id], (err, result) => {
 			if (err) {
 				console.error(err);
@@ -143,7 +141,7 @@ module.exports = {
 
 	deleteTask: (req, res) => {
 		const id = req.params.id;
-		const removeTask = `DELETE FROM Task WHERE id =${id}`;
+		const removeTask = `DELETE FROM task WHERE id =${id}`;
 		connect.query(removeTask, (error, result) => {
 			if (error) {
 				console.log(error);
