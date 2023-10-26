@@ -22,7 +22,8 @@ module.exports = {
 
 		// Check if the username is alredy taken
 		connect.query(
-			`SELECT * FROM users WHERE user_name = '${userName}'`,
+			`SELECT * FROM users WHERE user_name = ?`,
+			[userName],
 			(err, results) => {
 				if (err) {
 					return res.status(500).json({ msg: "Database query error" });

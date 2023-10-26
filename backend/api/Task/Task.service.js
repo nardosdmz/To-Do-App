@@ -16,7 +16,7 @@ module.exports = {
 
 	getAllTasks: (data, callback) => {
 		connect.query(
-			"SELECT * FROM task WHERE user_id = ?",
+			`SELECT * FROM task WHERE user_id = ?`,
 			[data.userId],
 			(err, result) => {
 				if (err) {

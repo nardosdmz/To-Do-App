@@ -41,7 +41,7 @@ module.exports = {
 	taskByID: (req, res) => {
 		const user_id = req.query.user_id;
 		const id = req.params.id; //ex user sent /user/123
-		const singleTask = "SELECT * FROM task WHERE id = ? AND user_id = ?;";
+		const singleTask = `SELECT * FROM task WHERE id = ? AND user_id = ?`;
 
 		connect.query(singleTask, [id, user_id], (error, results) => {
 			if (error) {
@@ -127,7 +127,7 @@ module.exports = {
 
 		// update the task to set due_date to null
 		const updateQuery =
-			"UPDATE task SET due_date = NULL WHERE id = ? AND user_id = ?";
+			`UPDATE task SET due_date = NULL WHERE id = ? AND user_id = ?`;
 
 		connect.query(updateQuery, [id, user_id], (err, result) => {
 			if (err) {
