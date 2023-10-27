@@ -1,4 +1,4 @@
-const { connect } = require("../../connect");
+const { pool } = require("../../connect");
 const { postTask, getAllTasks } = require("./Task.service");
 
 module.exports = {
@@ -43,7 +43,7 @@ module.exports = {
 		const id = req.params.id; //ex user sent /user/123
 		const singleTask = `SELECT * FROM task WHERE id = ? AND user_id = ?`;
 
-		connect.query(singleTask, [id, user_id], (error, results) => {
+		pool.query(singleTask, [id, user_id], (error, results) => {
 			if (error) {
 				return res.status(500).json({ msg: error });
 			}
@@ -62,7 +62,7 @@ module.exports = {
 		// console.log(req.body, "tasks to be updated");
 
 		//select from dbase to check if the data already exsits before updating
-		connect.query(
+		pool.query(
 			`SELECT task_name, completed ${
 				dueDate ? ", due_date" : ""
 			} FROM task WHERE id = ? AND user_id = ?`,
@@ -104,13 +104,13 @@ module.exports = {
 					id,
 					user_id,
 				];
-				connect.query(updateTask, values, (error, results) => {
+				pool.query(updateTask, values, (error, results) => {
 					if (error) {
 						console.log(error);
 						return res.status(500).json({ message: "Task update failed" });
 					}
 					const singleTask = `SELECT * FROM task WHERE id = ? AND user_id = ?`;
-					connect.query(singleTask, [id, user_id], (err, result) => {
+					pool.query(singleTask, [id, user_id], (err, result) => {
 						if (err) {
 							return res.status(500).json({ message: err });
 						}
@@ -129,7 +129,7 @@ module.exports = {
 		const updateQuery =
 			`UPDATE task SET due_date = NULL WHERE id = ? AND user_id = ?`;
 
-		connect.query(updateQuery, [id, user_id], (err, result) => {
+		pool.query(updateQuery, [id, user_id], (err, result) => {
 			if (err) {
 				console.error(err);
 				res.status(500).json({ message: "Failed to update due date" });
@@ -142,7 +142,7 @@ module.exports = {
 	deleteTask: (req, res) => {
 		const id = req.params.id;
 		const removeTask = `DELETE FROM task WHERE id =${id}`;
-		connect.query(removeTask, (error, result) => {
+		pool.query(removeTask, (error, result) => {
 			if (error) {
 				console.log(error);
 				return res.status(500).json({ message: "Task deletion failed" });

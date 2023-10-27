@@ -1,8 +1,8 @@
-const { connect } = require("../../connect");
+const { pool } = require("../../connect");
 
 module.exports = {
 	register: (data, callback) => {
-		connect.query(
+		pool.query(
 			`INSERT INTO users(user_name, user_password) VALUES (?, ?)`,
 			[data.userName, data.password],
 			(err, result) => {
@@ -15,7 +15,7 @@ module.exports = {
 	},
 
 	userById: (id, callback) => {
-		connect.query(
+		pool.query(
 			`SELECT users.user_id, user_name FROM users WHERE users.user_id = ?`,
 			[id],
 			(err, result) => {
@@ -29,7 +29,7 @@ module.exports = {
 
 	getUserByUserName: (userName) => {
 		return new Promise((resolve, reject) => {
-			connect.query(
+			pool.query(
 				`SELECT * FROM users WHERE user_name = ?`,
 				[userName],
 				(err, result) => {
@@ -44,7 +44,7 @@ module.exports = {
 	},
 
 	getAllUsers: (callback) => {
-		connect.query(
+		pool.query(
 			`SELECT user_id, user_name, user_password FROM users`,
 			[],
 			(err, result) => {

@@ -1,8 +1,8 @@
-const { connect } = require("../../connect");
+const { pool } = require("../../connect");
 
 module.exports = {
 	postTask: (data, callback) => {
-		connect.query(
+		pool.query(
 			`INSERT INTO task ( user_id, task_name) VALUES (?, ?)`,
 			[data.userId, data.taskName],
 			(err, result) => {
@@ -15,7 +15,7 @@ module.exports = {
 	},
 
 	getAllTasks: (data, callback) => {
-		connect.query(
+		pool.query(
 			`SELECT * FROM task WHERE user_id = ?`,
 			[data.userId],
 			(err, result) => {

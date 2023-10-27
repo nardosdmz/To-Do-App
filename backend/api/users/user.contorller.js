@@ -1,4 +1,4 @@
-const { connect } = require("../../connect");
+const { pool } = require("../../connect");
 const {
 	register,
 	getAllUsers,
@@ -21,7 +21,7 @@ module.exports = {
 				.json({ msg: "Not all fields have been provided " });
 
 		// Check if the username is alredy taken
-		connect.query(
+		pool.query(
 			`SELECT * FROM users WHERE user_name = ?`,
 			[userName],
 			(err, results) => {

@@ -1,14 +1,15 @@
 const mysql = require("mysql2");
 require("dotenv").config();
 
-const connect = mysql.createConnection({
+const pool = mysql.createPool({
 	user: process.env.DB_USER,
 	host: process.env.DB_HOST,
 	database: process.env.DB_DATABASE,
 	password: process.env.DB_PASSWORD,
+	connectionLimit: 10,
 });
 
-connect.connect((err) => {
+pool.getConnection((err) => {
 	if (err) {
 		console.log(err.message);
 	} else {
@@ -33,15 +34,15 @@ connect.connect((err) => {
   FOREIGN KEY (user_id) REFERENCES users(user_id)
 )`;
 
-	connect.query(users, (err, results) => {
+	pool.query(users, (err, results) => {
 		if (err) throw err;
 		console.log("Users table created");
 	});
 
-	connect.query(installTable, (err) => {
+	pool.query(installTable, (err) => {
 		if (err) throw err;
 		console.log("Task table created");
 	});
 });
 
-module.exports = { connect };
+module.exports = { pool };
